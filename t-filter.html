@@ -649,7 +649,9 @@ Custom property | Description | Default
       },
 
       ready: function(){
-
+        this.loaded();        
+      },
+      loaded:function (){
         if(!this.data) return;
 
         // create __id
