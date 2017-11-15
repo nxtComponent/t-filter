@@ -19,79 +19,119 @@ A filter component
 
 <dom-module id="t-filter-block-content">
   <template>
-    
+
     <style include="t-style-utils"></style>
     <style include="t-font-icons"></style>
     <style>
-      :host {
+       :host {
         --v-t-hotel-info-anchor-color: #1976d2;
-        --v-t-font-dark: rgba(0,0,0,0.87);
-        --v-t-font-light: rgba(0,0,0,0.54);
-        --v-t-font-lighter: rgba(0,0,0,0.38);
+        --v-t-font-dark: rgba(0, 0, 0, 0.87);
+        --v-t-font-light: rgba(0, 0, 0, 0.54);
+        --v-t-font-lighter: rgba(0, 0, 0, 0.38);
         --v-t-border-color: #e5e5e5;
-      }
-      a{
-        color: #1b76d1;
-        text-decoration: none;
-        text-transform: uppercase;
-        margin-right: 10px;
-      }
-      .filter-content{
-        padding: 20px 24px;
-      }
 
-      .filter-content .filter-content{
-        padding: 0;
-      }
-      /* paper autocomplete style*/
-      paper-autocomplete{
-        --paper-input-container-focus-color: var(--v-t-hotel-info-anchor-color);
-        --paper-input-container-color: var(--v-t-border-color);
-        --paper-input-container-label: {
-          color: var(--v-t-font-lighter);
+        --paper-input-container: {
+          padding: 0;
+        }
+        ;
+        --paper-input-container-input: {
           font-size: 14px;
         }
-      }
-      /*checkbox style */
-      paper-checkbox {
-        width: 100%;
-        margin-bottom: 10px;
+        ;
+        --paper-input-container-label: {
+          color: var(--v-t-font-light)
+        }
+        ;
+        --paper-input-container-underline: {
+          border-color: var(--v-t-border-color);
+        }
+        ;
+        --paper-input-container-underline-focus: {
+          border-color: var(--v-t-hotel-info-anchor-color);
+        }
+        ;
+        --paper-radio-button-size: 18px;
         --paper-checkbox-label: {
           width: calc(100% - 18px);
           box-sizing: border-box;
           padding-left: 15px;
-          /*color: rgba(0,0,0,0.54);*/
-        };
+          font-size: 14px;
+        }
+        ;
         --paper-checkbox-checked-color: var(--v-t-hotel-info-anchor-color);
         --paper-checkbox-unchecked-color: #a4a4a4;
-        --paper-checkbox-label-color: rgba(0,0,0,0.54);
+        --paper-checkbox-label-color: rgba(0, 0, 0, 0.54);
+        --paper-radio-button-label: {
+          font-size: 14px;
+        }
+        ;
+        --t-rating-stars-font-size: 20px;
       }
+
+      paper-input {
+        margin-bottom: 20px;
+      }
+
+      .filter-content {
+        padding: var(--filter-content-padding, 20px 22px);
+      }
+
+      .filter-content .filter-content {
+        padding: 0;
+      }
+      /* paper autocomplete style*/
+
+      paper-autocomplete {
+        --paper-input-container-focus-color: var(--v-t-hotel-info-anchor-color);
+        --paper-input-container-color: var(--v-t-border-color);
+        --paper-input-container-label: {
+          color: var(--v-t-font-light);
+          font-size: 14px;
+        }
+        ;
+        --paper-item-min-height: 30px;
+        --paper-item: {
+          font-size: 14px;
+          color: var(--v-t-font-dark);
+        }
+        ;
+      }
+      /*checkbox style */
+
+      paper-checkbox {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+
       paper-checkbox ::content :last-child {
         margin-bottom: 0;
       }
-      paper-checkbox .option-primary {
-        float: left;
-      }
-      paper-checkbox .option-secondary {
-        float: right;
-      }
+
       paper-checkbox.star-checkbox .option-primary {
         margin-top: -5px;
       }
       /*radio button style*/
+
       paper-radio-group {
         width: 100%;
         margin-top: -10px;
       }
+
+      paper-checkbox .option-primary,
       paper-radio-group .option-primary {
         float: left;
       }
+
+      paper-checkbox .option-secondary,
       paper-radio-group .option-secondary {
         float: right;
       }
-      paper-radio-button{
+
+      paper-radio-button {
         width: 100%;
         padding: 0;
+        margin-top: 10px;
+
         --paper-radio-button-unchecked-color: #a4a4a4;
         --paper-radio-button-checked-color: var(--v-t-hotel-info-anchor-color);
         --paper-radio-button-label-color: var(--v-t-font-light);
@@ -102,77 +142,86 @@ A filter component
           box-sizing: border-box;
         }
       }
-      paper-radio-button {
-        margin-top: 10px;
-      }
       /*Range slider */
-      paper-range-slider{
-        --paper-range-slider-knob-color:              var(--v-t-hotel-info-anchor-color);;
-        --paper-range-slider-pin-color:               var(--v-t-hotel-info-anchor-color);;
-        --paper-range-slider-higher-color:            #e5e5e5;
-        --paper-range-slider-lower-color:             #e5e5e5;
-        --paper-range-slider-active-color:            var(--v-t-hotel-info-anchor-color);;
-        --paper-range-slider-knob-start-color:        #e5e5e5;
+
+      paper-range-slider {
+        --paper-range-slider-knob-color: var(--v-t-hotel-info-anchor-color);
+        --paper-range-slider-pin-color: var(--v-t-hotel-info-anchor-color);
+        --paper-range-slider-higher-color: #e5e5e5;
+        --paper-range-slider-lower-color: #e5e5e5;
+        --paper-range-slider-active-color: var(--v-t-hotel-info-anchor-color);
+        --paper-range-slider-knob-start-color: #e5e5e5;
         --paper-range-slider-knob-start-border-color: #e5e5e5;
-        margin-left: -16px;
-        margin-right: -16px;
+        margin-left: -12px;
+        margin-right: -12px;
       }
+
       .slider-max-min-text {
         color: var(--v-t-font-light);
       }
-      paper-single-range-slider{
+
+      paper-single-range-slider {
         margin: 0;
       }
-
       /*paper input dropdown*/
-      paper-dropdown-input{
+
+      paper-dropdown-input {
         width: 100%;
-        
         --paper-menu-button-dropdown: {
           position: absolute !important;
           right: 0 !important;
-          top: 54px !important;
           left: 0 !important;
         }
+        ;
         --paper-input-container-color: var(--v-t-border-color);
       }
+
       paper-dropdown-input .option-primary {
         padding: 5px 0 5px 20px;
         float: left;
       }
+
       paper-dropdown-input .option-secondary {
         padding: 5px 20px 5px 0;
         float: right;
       }
+
       .group-title {
         font-size: 14px;
         color: var(--v-t-font-dark);
         font-weight: normal;
       }
-      .show-more-link{
+
+      .show-more-link {
         margin-top: 16px;
         display: block;
         text-transform: none;
+      }
+
+      t-rating-stars {
+        line-height: 24px;
       }
     </style>
 
     <section class="filter-content" hidden$={{!item.isOpen}}>
 
-      <paper-input hidden$={{!item.allowSearch}} value="{{searchString::input}}" no-label-float="true"></paper-input>
-      
+      <paper-input hidden$={{!item.allowSearch}} label="Search" value="{{searchString::input}}" no-label-float="true"></paper-input>
+
       <!--If text box-->
       <template is="dom-if" if="{{_ofType(item.type, 'Text')}}">
-        <paper-autocomplete text="{{item.selected}}" on-autocomplete-reset-blur="_onChange" on-autocomplete-selected="_onChange" label="{{item.helpText}}" id="[[item.__id]]" source="{{item.data}}" no-label-float="true"></paper-autocomplete>
+        <paper-autocomplete text="{{item.selected}}" on-autocomplete-reset-blur="_onChange" on-autocomplete-selected="_onChange"
+          label="{{item.helpText}}" id="[[item.__id]]" source="{{item.data}}" no-label-float="true"></paper-autocomplete>
       </template>
 
       <!--If options-->
       <template is="dom-if" if="{{_ofType(item.type, 'Option')}}">
-        
+
         <!--If checkbox-->
         <template is="dom-if" if="{{_ofType(item.allowMultiSelect, 'true')}}">
-          <template  is="dom-repeat" as="option" items={{item.data}} filter="{{_computeFilter(searchString)}}">
-            
-            <paper-checkbox id="[[option.__id]]" hidden$="{{option.hidden}}" checked$="{{_isSelected('checkbox', option, item, index)}}" on-change="_onChange" disabled$={{_toDisable(option.isEnabled)}} id="[[item.__id]]">
+          <template is="dom-repeat" as="option" items={{item.data}} filter="{{_computeFilter(searchString)}}">
+
+            <paper-checkbox id="[[option.__id]]" hidden$="{{option.hidden}}" checked$="{{_isSelected('checkbox', option, item, index)}}"
+              on-change="_onChange" disabled$={{_toDisable(option.isEnabled)}} id="[[item.__id]]">
               <template is="dom-if" if="{{option.primary}}">
                 <div class="option-primary">{{option.primary}}</div>
               </template>
@@ -185,19 +234,19 @@ A filter component
           <!-- <a href="#" class="show-more-link" hidden$="{{_toToggleMoreLessText(item, 'show_more')}}" on-tap="_showMoreLink">[[resources.moreLinkText]]</a>
           <a href="#" class="show-more-link" hidden$="{{_toToggleMoreLessText(item, 'show_less')}}" on-tap="_showLessLink">[[resources.lessLinkText]]</a> -->
         </template>
-        
+
         <!--If radio-->
         <template is="dom-if" if="{{_ofType(item.allowMultiSelect, 'false')}}">
           <paper-radio-group id="[[item.__id]]" selected="{{item.selected}}">
-            <template  is="dom-repeat" as="option" items={{item.data}} filter="{{_computeFilter(searchString)}}">
-                <paper-radio-button name="[[index]]" hidden$="{{option.hidden}}" on-change="_onChange" id="[[option.__id]]" disabled$={{_toDisable(option.isEnabled)}}>
-                  <template is="dom-if" if="{{option.primary}}">
-                    <div class="option-primary">{{option.primary}}</div>
-                  </template>
-                  <template is="dom-if" if="{{option.secondary}}">
-                    <div class="option-secondary">({{option.secondary}})</div>
-                  </template>
-                </paper-radio-button>
+            <template is="dom-repeat" as="option" items={{item.data}} filter="{{_computeFilter(searchString)}}">
+              <paper-radio-button name="[[index]]" hidden$="{{option.hidden}}" on-change="_onChange" id="[[option.__id]]" disabled$={{_toDisable(option.isEnabled)}}>
+                <template is="dom-if" if="{{option.primary}}">
+                  <div class="option-primary">{{option.primary}}</div>
+                </template>
+                <template is="dom-if" if="{{option.secondary}}">
+                  <div class="option-secondary">({{option.secondary}})</div>
+                </template>
+              </paper-radio-button>
             </template>
           </paper-radio-group>
           <!-- <a href="#" class="show-more-link" hidden$="{{_toToggleMoreLessText(item, 'show_more')}}" on-tap="_showMoreLink">[[resources.moreLinkText]]</a>
@@ -207,7 +256,7 @@ A filter component
 
       <!--If ratings -->
       <template is="dom-if" if="{{_ofType(item.type, 'Rating')}}">
-        <template  is="dom-repeat" as="option" items={{item.data}} filter="{{_computeFilter(searchString)}}">
+        <template is="dom-repeat" as="option" items={{item.data}} filter="{{_computeFilter(searchString)}}">
           <paper-checkbox class="star-checkbox" checked$="{{_isSelected('checkbox', option, item, index)}}" on-change="_onChange" id="[[option.__id]]">
             <t-rating-stars class="option-primary" value="{{option.primary}}" height="20" font-size="18"></t-rating-stars>
             <template is="dom-if" if="{{option.secondary}}">
@@ -223,17 +272,21 @@ A filter component
           <span class="float-left">{{item.minValue}}</span>
           <span class="float-right">{{item.maxValue}}</span>
         </div>
-        <paper-range-slider id="[[item.__id]]" on-change="_onChange" value-min$="{{_getValue('min', item)}}" value-max$="{{_getValue('max', item)}}" always-show-pin$={{item.isSingleMarker}} single-slider$={{item.isSingleMarker}} step="{{item.step}}" slider-width="100%" max="{{item.maxValue}}" min="{{item.minValue}}"></paper-range-slider>
+        <paper-range-slider id="[[item.__id]]" on-change="_onChange" value-min$="{{_getValue('min', item)}}" value-max$="{{_getValue('max', item)}}"
+          always-show-pin$={{item.isSingleMarker}} single-slider$={{item.isSingleMarker}} step="{{item.step}}" slider-width="100%"
+          max="{{item.maxValue}}" min="{{item.minValue}}"></paper-range-slider>
       </template>
 
       <!--If select-->
       <template is="dom-if" if="{{_ofType(item.type, 'Select')}}">
-        <paper-dropdown-input no-search selected-item-label="{{_getSelectedDropDownLabel(item)}}" on-change="_onChange" items='{{item.data}}' id="[[item.__id]]">
+        <paper-dropdown-input no-search no-label-float no-overlap noink label="Select" selected-item-label="{{_getSelectedDropDownLabel(item)}}"
+          on-change="_onChange" items='{{item.data}}' id="[[item.__id]]" vertical-align="top" horizontal-align="left">
           <template>
             <template is="dom-repeat" items="{{item.data}}" as="option">
-                <div class="clearfix" label="{{option.primary}}" on-tap="_onChange">
-                  <div class="option-primary">{{option.primary}}</div> <div class="option-secondary">({{option.secondary}})</div>
-                </div>
+              <div class="clearfix" label="{{option.primary}}" on-tap="_onChange">
+                <div class="option-primary">{{option.primary}}</div>
+                <div class="option-secondary">({{option.secondary}})</div>
+              </div>
             </template>
           </template>
         </paper-dropdown-input>
@@ -261,39 +314,39 @@ A filter component
       listener: {
         'autocomplete-change': "_onChange"
       },
-      _computeFilter: function(string){
-        
+      _computeFilter: function (string) {
+
         if (!string) {
           return null;
         } else {
 
           string = string.toLowerCase();
-          return function(item) {
+          return function (item) {
             var first = item.primary.toLowerCase();
             var last = item.secondary.toLowerCase();
             return (first.indexOf(string) != -1 || last.indexOf(string) != -1);
           };
         }
       },
-      _getSelectedDropDownLabel: function(item){
-        if(typeof item.selected === "number"){
+      _getSelectedDropDownLabel: function (item) {
+        if (typeof item.selected === "number") {
           return item.data[item.selected] ? item.data[item.selected].primary : "";
         }
         return "";
       },
-      _isSelected: function(type, option, item, index){
+      _isSelected: function (type, option, item, index) {
 
-        if(item && Object.keys(item).length === 0) return;
-        if(typeof item.selected === "undefined") return;
-        
-        if(type === "checkbox" && (item.selected.indexOf(index) > -1)){
+        if (item && Object.keys(item).length === 0) return;
+        if (typeof item.selected === "undefined") return;
+
+        if (type === "checkbox" && (item.selected.indexOf(index) > -1)) {
           return true;
-        } else if(type === "checkbox"){
+        } else if (type === "checkbox") {
           return false;
-        } else if(type === "radio"){
+        } else if (type === "radio") {
 
           // Check the last item only
-          if(item.selected[item.selected.length - 1] === index){
+          if (item.selected[item.selected.length - 1] === index) {
             return true;
           }
           return false;
@@ -302,52 +355,52 @@ A filter component
           return false;
         }
       },
-      _toDisable: function(isEnabled){
-        if(typeof isEnabled !== "undefined"){
+      _toDisable: function (isEnabled) {
+        if (typeof isEnabled !== "undefined") {
           return !isEnabled;
         } else {
           return false;
         }
       },
-      _ofType: function(type, text){
-        if(typeof type === "boolean" && type && text === "true"){
+      _ofType: function (type, text) {
+        if (typeof type === "boolean" && type && text === "true") {
           return true;
         }
-        
-        if(typeof type === "boolean" && !type && text === "false"){
+
+        if (typeof type === "boolean" && !type && text === "false") {
           return true;
         }
 
         return type === text;
       },
-      _getValue: function(type, item){
-        if(typeof item.selected !== "undefined" && type === "min"){
+      _getValue: function (type, item) {
+        if (typeof item.selected !== "undefined" && type === "min") {
           return item.selected[0];
-        } else if(typeof item.selected !== "undefined" && type === "max"){
+        } else if (typeof item.selected !== "undefined" && type === "max") {
           return item.selected[1];
         } else {
           return 0;
         }
       },
-      _onChange: function(e){
+      _onChange: function (e) {
         var oItem = this.item,
-        index,item,option,id;
-        
-        if(e.model){
-            index = e.model.index,
-            item = e.model.item,
-            option = e.model.option;           
+          index, item, option, id;
 
-          if(item && item.__id){
+        if (e.model) {
+          index = e.model.index,
+            item = e.model.item,
+            option = e.model.option;
+
+          if (item && item.__id) {
             id = item.__id;
           } else {
             id = option.__id;
           }
-        }else{
-          id= oItem.code;
+        } else {
+          id = oItem.code;
         }
-        
-        if(this.item.type === "Text"){
+
+        if (this.item.type === "Text") {
           this.fire("t-filter-block-changed", {
             item: oItem,
             id: id,
@@ -355,7 +408,7 @@ A filter component
           });
         }
 
-        if(this.item.type === "Option"){
+        if (this.item.type === "Option") {
           this.fire("t-filter-block-changed", {
             item: oItem,
             index: index,
@@ -364,8 +417,8 @@ A filter component
           });
         }
 
-        if(this.item.type === "Rating"){
-         this.fire("t-filter-block-changed", {
+        if (this.item.type === "Rating") {
+          this.fire("t-filter-block-changed", {
             item: oItem,
             index: index,
             id: id,
@@ -373,8 +426,8 @@ A filter component
           });
         }
 
-        if(this.item.type === "Range"){
-         this.fire("t-filter-block-changed", {
+        if (this.item.type === "Range") {
+          this.fire("t-filter-block-changed", {
             item: oItem,
             id: id,
             index: index,
@@ -383,7 +436,7 @@ A filter component
           });
         }
 
-        if(this.item.type === "Select"){
+        if (this.item.type === "Select") {
           this.fire("t-filter-block-changed", {
             item: oItem,
             index: index,
