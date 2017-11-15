@@ -311,93 +311,99 @@ Custom property | Description | Default
 
 <dom-module id="t-filter">
   <template>
-    
+
     <style include="t-style-utils"></style>
     <style include="t-font-icons"></style>
     <style>
-      :host {
+       :host {
         --v-t-hotel-info-anchor-color: #1976d2;
-        --v-t-font-dark: rgba(0,0,0,0.87);
-        --v-t-font-light: rgba(0,0,0,0.54);
-        --v-t-font-lighter: rgba(0,0,0,0.38);
+        --v-t-font-dark: rgba(0, 0, 0, 0.87);
+        --v-t-font-light: rgba(0, 0, 0, 0.54);
+        --v-t-font-lighter: rgba(0, 0, 0, 0.38);
       }
-      a{
-        color: var(--v-t-hotel-info-anchor-color,#1976d2);
+
+      a {
+        color: var(--v-t-hotel-info-anchor-color, #1976d2);
         text-decoration: none;
         text-transform: uppercase;
         margin-right: 10px;
       }
-      
-      .filter-item{
-        border: 1px solid #e5e5e5;
+
+      .filter-item {
+        border: 1px solid var(--filter-title-border-color, #e5e5e5);
         margin-bottom: 16px;
       }
-      
-      .filter-header{
-        color: var(--v-t-font-dark,rgba(0,0,0,0.87));
-        background-color: #f5f5f5;
-        border-bottom: 1px solid #e5e5e5;
-      }
-      
-      .filter-header{
-        padding: 0 24px;
-        height: 48px;
-        line-height: 48px;
+
+      .filter-header {
+        color: var(--v-t-font-dark, rgba(0, 0, 0, 0.87));
+        background-color: var(--filter-title-bg-color, #f5f5f5);
+        border-bottom: 1px solid var(--filter-title-border-color, #e5e5e5);
       }
 
-      .filter-header h3{
+      .filter-header {
+        padding: 0 22px;
+        height: var(--filter-title-height, 48px);
+        line-height: var(--filter-title-height, 48px);
+      }
+
+      .filter-header h3 {
         padding: 0;
         margin: 0;
         font-weight: 400;
-        font-size: 16px;
+        font-size: var(--filter-title-font-size, 16px);
       }
-      
-      .chevron{
+
+      .chevron {
         font-size: 24px;
         cursor: pointer;
-        color: #717171;
+        color: var(--filter-title-arrow-color, #717171);
         display: inline-block;
         line-height: 52px;
       }
+
       .filter-top-header {
         font-size: 20px;
-        color: rgba(0,0,0,0.87);
+        color: rgba(0, 0, 0, 0.87);
         font-weight: normal;
         margin: 0;
         padding: 0 0;
         line-height: 48px;
       }
-      .reset-apply-top-btn{
+
+      .reset-apply-top-btn {
         padding: 0 0 0;
         margin: 0 0 0 24px;
         line-height: 48px;
       }
+
       .filter-back {
         float: left;
         font-size: 24px;
-        color: var(--v-t-font-light, rgba(0,0,0,0.54));
+        color: var(--v-t-font-light, rgba(0, 0, 0, 0.54));
         line-height: 48px;
         margin-right: 24px;
       }
+
       .filter-top-header-section {
         padding-top: 15px;
         margin-bottom: 10px;
       }
+
       @media screen and (max-width: 1024px) {
-        .filter-overlay{
+        .filter-overlay {
           position: absolute;
           left: 0;
           right: 0;
           top: 0;
           bottom: 0;
-          background: rgba(255,255,255,0.7);
+          background: rgba(255, 255, 255, 0.7);
         }
-        .filter-wrapper{
+        .filter-wrapper {
           position: relative;
           z-index: 1;
           width: 325px;
           padding: 0 16px;
-          box-shadow: 0 0 2px rgba(0,0,0,0.2);
+          box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
           height: 100%;
           overflow: auto;
           background: white;
@@ -408,6 +414,7 @@ Custom property | Description | Default
           margin-bottom: 5px;
         }
       }
+
       @media screen and (max-width: 767px) {
         .filter-wrapper {
           width: 100%;
@@ -436,24 +443,24 @@ Custom property | Description | Default
       <slot name="filterplaceholder"></slot>
       <template is="dom-repeat" items={{data}}>
         <div class=filter-item>
-          
+
           <header class="filter-header clearfix">
-            
+
             <h3 class="float-left">{{item.title}}</h3>
 
-            <span class="float-right chevron" on-tap="_toggleView" hidden$="[[!settings.collapsableHeader]]"><i class$="{{_chevronClass(item.isOpen)}}"></i></span>  
+            <span class="float-right chevron" on-tap="_toggleView" hidden$="[[!settings.collapsableHeader]]">
+              <i class$="{{_chevronClass(item.isOpen)}}"></i>
+            </span>
 
-            <span class="float-right reset-filter-link" hidden$="[[!settings.optionLevelReset]]" on-tap="_resetView"><a href="#">{{resources.optionResetText}}</a></span>
-            
+            <span class="float-right reset-filter-link" hidden$="[[!settings.optionLevelReset]]" on-tap="_resetView">
+              <a href="#">{{resources.optionResetText}}</a>
+            </span>
+
           </header>
 
-          <t-filter-block-content
-            resources="[[resources]]" 
-            on-t-filter-block-changed="_onChange" 
-            item="{{item}}"
-            is-open={{item.isOpen}}>
+          <t-filter-block-content resources="[[resources]]" on-t-filter-block-changed="_onChange" item="{{item}}" is-open={{item.isOpen}}>
           </t-filter-block-content>
-          
+
         </div>
       </template>
     </div>
@@ -479,73 +486,73 @@ Custom property | Description | Default
         't-filter-update-state': '_setState'
       },
 
-      _clone: function(dataToClone){
+      _clone: function (dataToClone) {
         return JSON.parse(JSON.stringify(dataToClone));
       },
 
-      _setState: function(evt, data){
+      _setState: function (evt, data) {
         this.data = data;
       },
 
-      getState: function(){
+      getState: function () {
         return this.data;
       },
 
-      _getFormattedDataForFilter: function(filters, accArr){
+      _getFormattedDataForFilter: function (filters, accArr) {
         var arr = accArr || [],
-            self = this;
+          self = this;
 
-        filters.forEach(function(filter){
+        filters.forEach(function (filter) {
 
-          if(filter.type === "Group"){
+          if (filter.type === "Group") {
             self._getFormattedDataForFilter(filter.options, arr);
           } else {
             arr.push({
               code: filter.code,
               selected: filter.selected
-            });            
+            });
           }
         });
 
         return arr;
       },
 
-      _applyFilter: function(evt, data){
+      _applyFilter: function (evt, data) {
         this.fire("t-filter-apply", this._getFormattedDataForFilter(this.data));
       },
 
-      _resetAllFilter: function(evt, data){
-        try{
+      _resetAllFilter: function (evt, data) {
+        try {
           evt.preventDefault();
-        } catch(e){
+        } catch (e) {
 
         }
-        
+
         this.data = this._clone(this._origData);
         this.fire("t-filter-changed", this.data);
       },
-      
+
       // Show Hide Filter Block
-      _toggleView: function(evt){
+      _toggleView: function (evt) {
         var isOpenState = !evt.model.get("item").isOpen;
         evt.model.set("item.isOpen", isOpenState);
         this.updateStyles();
       },
-      
+
       // Reset Filter
-      _resetView: function(evt, resetData){
-        try{
+      _resetView: function (evt, resetData) {
+        try {
           evt.preventDefault();
-        } catch(e){
+        } catch (e) {
 
         }
 
         evt.preventDefault();
         var index,
-            clonedFilterData;
+          clonedFilterData;
 
         // When reset custom event is triggered
-        if(resetData && typeof resetData.index === "number"){
+        if (resetData && typeof resetData.index === "number") {
 
           index = resetData.index;
           this._origData[index].isOpen = this.data[index].isOpen;
@@ -567,19 +574,19 @@ Custom property | Description | Default
       },
 
       // Return Class for filter expand/collapse icon
-      _chevronClass: function(isOpen){
-        if(isOpen){
+      _chevronClass: function (isOpen) {
+        if (isOpen) {
           return 'icon-drop-up';
         }
         return 'icon-drop-down';
       },
 
-      _assignId: function(data, code, index){
+      _assignId: function (data, code, index) {
         var self = this;
 
-        if(Array.isArray(data)){
-          data.forEach(function(dataItem, index){
-            if(dataItem.data || dataItem.options){
+        if (Array.isArray(data)) {
+          data.forEach(function (dataItem, index) {
+            if (dataItem.data || dataItem.options) {
               dataItem.__id = dataItem.code;
               return self._assignId(dataItem.data || dataItem.options, dataItem.code, index);
             } else {
@@ -591,25 +598,25 @@ Custom property | Description | Default
         }
       },
 
-      _onChange: function(e, data){
+      _onChange: function (e, data) {
 
-        if(data.item.type === "Text"){
+        if (data.item.type === "Text") {
           // No action required, model updates automatically
         }
 
-        if(data.item.type === "Option"){
+        if (data.item.type === "Option") {
           // If checkbox
-          if(data.item.allowMultiSelect){
-            if(data.item.selected.indexOf(data.index) < 0 && data.value === true){
+          if (data.item.allowMultiSelect) {
+            if (data.item.selected.indexOf(data.index) < 0 && data.value === true) {
               data.item.selected.push(data.index);
-            } else if(data.item.selected.indexOf(data.index) > -1 && data.value === false){
+            } else if (data.item.selected.indexOf(data.index) > -1 && data.value === false) {
               var foundAt = data.item.selected.indexOf(data.index);
               data.item.selected.splice(foundAt, 1);
             }
           } else {
-            
+
             // If radio
-            if(data.value){
+            if (data.value) {
               data.item.selected = data.index;
             } else {
               data.item.selected = -1;
@@ -617,24 +624,24 @@ Custom property | Description | Default
           }
         }
 
-        if(data.item.type === "Rating"){
-         if(data.item.selected.indexOf(data.index) < 0 && data.value === true){
+        if (data.item.type === "Rating") {
+          if (data.item.selected.indexOf(data.index) < 0 && data.value === true) {
             data.item.selected.push(data.index);
-          } else if(data.item.selected.indexOf(data.index) > -1 && data.value === false){
+          } else if (data.item.selected.indexOf(data.index) > -1 && data.value === false) {
             var foundAt = data.item.selected.indexOf(data.index);
             data.item.selected.splice(foundAt, 1);
           }
         }
 
-        if(data.item.type === "Range"){
-          if(data.item.isSingleMarker){
+        if (data.item.type === "Range") {
+          if (data.item.isSingleMarker) {
             data.item.selected = [data.minValue];
           } else {
             data.item.selected = [data.minValue, data.maxValue];
           }
         }
 
-        if(data.item.type === "Select"){
+        if (data.item.type === "Select") {
           data.item.selected = data.item.data.indexOf(data.option);
         }
 
@@ -642,17 +649,17 @@ Custom property | Description | Default
           code: data.item.code,
           selected: data.item.selected
         };
-        
+
         this.fire("t-filter-item-tap", evtData);
-        this.fire("t-filter-"+data.item.code+"-item-apply", evtData);
+        this.fire("t-filter-" + data.item.code + "-item-apply", evtData);
         this.fire("t-filter-changed", this.data);
       },
 
-      ready: function(){
-        this.init();        
+      ready: function () {
+        this.init();
       },
-      init:function (){
-        if(!this.data) return;
+      init: function () {
+        if (!this.data) return;
 
         // create __id
         this._assignId(this.data);
@@ -662,12 +669,12 @@ Custom property | Description | Default
         this.fire("t-filter-changed", this.data);
       },
 
-      _applyFilters: function(e) {
-        
-        try{
+      _applyFilters: function (e) {
+
+        try {
           evt.preventDefault();
           document.getElementById('tFilter').style.display = 'none';
-        } catch(e){
+        } catch (e) {
 
         }
 
